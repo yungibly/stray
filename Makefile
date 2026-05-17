@@ -3,7 +3,7 @@ BINDIR ?= $(PREFIX)/bin
 TARGET ?= release
 SUDO ?= sudo
 
-BIN = simpletray
+BIN = stray
 CMD = stray
 
 all:

@@ -88,7 +88,7 @@ async fn main() -> Result<()> {
         Err(error) if missing_watcher(&error) => {
             tried_temporary_watcher = true;
             eprintln!(
-                "simpletray: no StatusNotifierWatcher found; listening for tray items for {TEMPORARY_WATCHER_SETTLE_MS}ms"
+                "stray: no StatusNotifierWatcher found; listening for tray items for {TEMPORARY_WATCHER_SETTLE_MS}ms"
             );
             let (watcher_connection, items) = temporary_tray_items().await?;
             connection = watcher_connection;
@@ -100,10 +100,10 @@ async fn main() -> Result<()> {
     if items.is_empty() {
         if tried_temporary_watcher {
             eprintln!(
-                "simpletray: no StatusNotifier items registered; run a tray host or rerun after apps notice the watcher"
+                "stray: no StatusNotifier items registered; run a tray host or rerun after apps notice the watcher"
             );
         } else {
-            eprintln!("simpletray: no StatusNotifier items found");
+            eprintln!("stray: no StatusNotifier items found");
         }
         return Ok(());
     }
@@ -416,7 +416,7 @@ async fn run_menu(lines: &[String]) -> Result<Option<String>> {
     let mut child = match command.spawn() {
         Ok(child) => child,
         Err(error) if error.kind() == ErrorKind::NotFound => {
-            return Err(format!("simpletray: could not run `{MENU_CMD}`").into());
+            return Err(format!("stray: could not run `{MENU_CMD}`").into());
         }
         Err(error) => return Err(error.into()),
     };
